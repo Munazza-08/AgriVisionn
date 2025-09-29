@@ -5,121 +5,156 @@
   <title>Smart Pesticide Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .sidebar {
-      width: 240px;
-      background: #2c3e50;
-      color: white;
-      padding-top: 20px;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-    }
-    .sidebar button {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      border: none;
-      background: none;
-      color: white;
-      text-align: left;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .sidebar button:hover {
-      background: #34495e;
-    }
-    .main {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
-    .page {
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-    .btn {
-      display: block;
-      margin: 10px 0;
-      padding: 12px;
-      width: 100%;
-      max-width: 280px;
-      background: #3498db;
-      color: white;
-      text-align: center;
-      border-radius: 6px;
-      cursor: pointer;
-      border: none;
-      font-size: 15px;
-    }
-    .btn:hover { background: #2980b9; }
-    .status {
-      margin-top: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #f4f4f4;
-      font-weight: bold;
-    }
-    /* Header with language selector */
-    header {
-      background: #1abc9c;
-      padding: 10px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    select {
-      padding: 5px;
-      font-size: 14px;
-    }
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        transform: translateX(-100%);
-        z-index: 1000;
-      }
-      .sidebar.open {
-        transform: translateX(0);
-      }
-      .hamburger {
-        display: inline-block;
-        font-size: 24px;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-    }
-    @media (max-width: 768px) {
+ <style>
   body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
     font-size: 16px;
   }
+
   .container {
-    padding: 10px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
   }
-}
-   
-    .page {
-  display: none;
-}
-.page.active {
-  display: block;
-}
-  </style>
-</head>
-<body>
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: green;
+    margin-bottom: 20px;
+  }
+
+  .system-status {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .system-status button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  .sidebar {
+    width: 240px;
+    background: #2c3e50;
+    color: white;
+    padding: 20px 10px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: none;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .sidebar button:hover {
+    background: #34495e;
+  }
+
+  .main {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .page {
+    display: none;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  .btn {
+    display: block;
+    margin: 10px 0;
+    padding: 12px;
+    width: 100%;
+    max-width: 280px;
+    background: #3498db;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+  }
+
+  .btn:hover {
+    background: #2980b9;
+  }
+
+  .status {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #f4f4f4;
+    font-weight: bold;
+  }
+
+  header {
+    background: #1abc9c;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  select {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  /* ✅ Mobile layout */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      transform: translateX(-100%);
+      z-index: 1000;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .hamburger {
+      display: inline-block;
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
+</style>
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
@@ -152,7 +187,24 @@
       <h2 data-key="welcome"></h2>
       <p data-key="selectOption"></p>
     </div>
+<div class="container">
+  <h1 class="title">Smart Pesticide Dashboard</h1>
 
+  <div class="system-status">
+    <button>Check Status</button>
+    <button>Find Maps with Selected Areas</button>
+  </div>
+
+  <div class="sidebar">
+    <ul>
+      <li>Home</li>
+      <li>System Status</li>
+      <li>ML Detection Output</li>
+      <li>Control Panel</li>
+      <li>Reports</li>
+    </ul>
+  </div>
+</div>
     <div id="systemstatusMenu" class="page">
       <h2 data-key="systemstatus"></h2>
       <button class="btn" onclick="showPage('cloneStatus')" data-key="cloneStatus"></button>
@@ -356,4 +408,5 @@
 </body>
 
 </html>
+
 
